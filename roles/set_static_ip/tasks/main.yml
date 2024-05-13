@@ -1,0 +1,11 @@
+---
+# tasks file for set_static_ip
+
+- name: Set static IP address
+  command: >
+    nmcli connection modify {{ network_interface }}
+    ipv4.method manual
+    ipv4.address "{{ ip_address }}/{{ subnet_mask }}"
+    ipv4.gateway "{{ gateway }}"
+    ipv4.dns "{{ dns_servers }}"
+  notify: Restart network service

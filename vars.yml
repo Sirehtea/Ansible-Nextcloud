@@ -1,0 +1,25 @@
+#dit bestand zal dienen als een "centraal" variabelenbestand voor alle rollen
+
+#role: change_hostname
+
+change_hostname_desired_hostname: "Sirehtea"
+
+#role: set_static_ip
+
+network_interface: "ens160"  # Change this to your actual network interface name
+ip_address: "192.168.0.127"  # Change to desired static IP address
+subnet_mask: "24"  # Change to your subnet mask
+gateway: "192.168.0.1"  # Change to your gateway IP address
+dns_servers: "192.168.0.1"  # Change to your DNS server
+
+#traefik:
+
+traefik_email: "turgayturgay42@hotmail.com"
+
+# install_nextcloud sensitive data will be stored in .env
+# default condiguration
+
+mysql_root_password: ""
+mysql_password: ""
+mysql_database: "nextcloud"
+mysql_user: "nextcloud"

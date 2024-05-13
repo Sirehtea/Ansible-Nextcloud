@@ -1,0 +1,8 @@
+---
+# tasks file for update_system_packages
+
+- name: Upgrade packages
+  dnf:
+    name: '*'
+    state: latest
+    update_cache: yes

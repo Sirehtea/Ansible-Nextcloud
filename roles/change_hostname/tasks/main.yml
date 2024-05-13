@@ -1,0 +1,6 @@
+---
+# tasks file for change_hostname
+
+- name: Set hostname to desired value
+  hostname:
+    name: "{{ change_hostname_desired_hostname }}"

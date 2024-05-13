@@ -1,0 +1,7 @@
+---
+# handlers file for set_static_ip
+
+- name: Restart network service
+  service:
+    name: NetworkManager
+    state: restarted

@@ -1,0 +1,45 @@
+---
+# tasks file for install_nextcloud
+
+- name: Create deployment directory
+  file:
+    path: /root/deployment
+    state: directory
+
+- name: Generate .env file
+  template:
+    src: /root/Nextcloud/template.env.j2
+    dest: /root/deployment/.env
+
+- name: Create docker-compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /root/deployment/docker-compose.yml
+
+- name: Create traefik network
+  docker_network:
+    name: traefik
+    state: present
+
+- name: Copy Traefik configuration files
+  copy:
+    src: /root/Nextcloud/traefik
+    dest: /root/deployment
+
+- name: Generate .env file for traefik
+  template:
+    src: /root/Nextcloud/template.env.j2
+    dest: /root/deployment/traefik/.env
+
+- name: Set permissions for acme.json and passwd files
+  command: chmod 600 /root/deployment/traefik/acme.json /root/deployment/traefik/passwd
+
+- name: Run Traefik with Docker Compose
+  command: docker compose up -d
+  args:
+    chdir: /root/deployment/traefik
+
+- name: Deploy Nextcloud stack
+  command: docker compose up -d
+  args:
+    chdir: /root/deployment

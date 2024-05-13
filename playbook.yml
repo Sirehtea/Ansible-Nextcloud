@@ -1,0 +1,12 @@
+---
+- hosts: testuser   # The group name from your hosts.ini file, can also just be the IP
+  become: yes         # To escalate privileges, if necessary
+  vars_files:
+    - vars.yml #gebruik de centrale vars.yml bestand
+  roles:
+    - role: update_system_packages
+    - role: install_nginx
+    - role: change_hostname
+    - role: set_static_ip
+    - role: install_docker
+    - role: install_nextcloud
