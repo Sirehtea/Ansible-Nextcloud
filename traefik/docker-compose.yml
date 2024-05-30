@@ -7,18 +7,17 @@ services:
       - 443:443
     volumes:
       - ./traefik.yml:/etc/traefik/traefik.yml
-      - ./acme.json:/acme.json
+      - ./acme.json:/etc/traefik/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./passwd:/etc/traefik/passwd
+    networks:
+      - traefik
     labels:
-      - "traefik.http.routers.dashboard.rule=Host(`${IP_ADDRESS}`)"
+      - "traefik.http.routers.dashboard.rule=Host(`${DOMAIN_NAME_TRAEFIK}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
       - "traefik.http.routers.dashboard.tls=true"
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
 networks:
-  default:
+  traefik:
     external: true
     name: traefik
