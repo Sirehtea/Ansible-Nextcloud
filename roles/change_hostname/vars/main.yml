@@ -1,4 +1,0 @@
----
-# vars file for change_hostname
-
-#change_hostname_desired_hostname: "{{ change_hostname_desired_hostname }}"
