@@ -1,0 +1,17 @@
+---
+# tasks file for traefik_requirements
+
+- name: Set permissions for acme.json file
+  file:
+    path: /root/deployment/traefik/acme.json
+    mode: 600
+
+- name: Run Traefik with Docker Compose
+  command: docker compose up -d
+  args:
+    chdir: /root/deployment/traefik
+
+- name: Deploy Nextcloud stack
+  command: docker compose up -d
+  args:
+    chdir: /root/deployment
