@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nextcloud.rule=Host(`${IP_ADDRESS}`)"
+      - "traefik.http.routers.nextcloud.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.nextcloud.entrypoints=websecure"
       - "traefik.http.services.nextcloud.loadbalancer.server.port=8080"
       - "traefik.http.routers.nextcloud.tls=true"
