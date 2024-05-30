@@ -28,18 +28,20 @@
 
 - name: Generate .env file for traefik
   template:
-    src: /root/Nextcloud/template.env.j2
+    src: /root/Nextcloud/template_traefik.env.j2
     dest: /root/deployment/traefik/.env
 
-- name: Set permissions for acme.json and passwd files
-  command: chmod 600 /root/deployment/traefik/acme.json /root/deployment/traefik/passwd
+- name: Create traefik file from template
+  template:
+    src: traefik.yml.j2
+    dest: /root/deployment/traefik/traefik.yml
 
-- name: Run Traefik with Docker Compose
-  command: docker compose up -d
+- name: Run docker compose up
+  command: "docker compose up -d"
   args:
     chdir: /root/deployment/traefik
 
-- name: Deploy Nextcloud stack
-  command: docker compose up -d
-  args:
-    chdir: /root/deployment
+# - name: Set permissions for acme.json
+#   command: chmod 600 /root/deployment/traefik/acme.json
+
+
