@@ -8,7 +8,7 @@
 
 - name: Generate .env file
   template:
-    src: /root/Nextcloud/template.env.j2
+    src: /root/ansible-Nextcloud/template.env.j2
     dest: /root/deployment/.env
 
 - name: Create docker-compose file
@@ -23,12 +23,12 @@
 
 - name: Copy Traefik configuration files
   copy:
-    src: /root/Nextcloud/traefik
+    src: /root/ansible-Nextcloud/traefik
     dest: /root/deployment
 
 - name: Generate .env file for traefik
   template:
-    src: /root/Nextcloud/template_traefik.env.j2
+    src: /root/ansible-Nextcloud/template_traefik.env.j2
     dest: /root/deployment/traefik/.env
 
 - name: Create traefik file from template
@@ -40,6 +40,11 @@
   command: "docker compose up -d"
   args:
     chdir: /root/deployment/traefik
+
+- name: Restart Docker service
+  systemd:
+    name: docker
+    state: restarted
 
 # - name: Set permissions for acme.json
 #   command: chmod 600 /root/deployment/traefik/acme.json
