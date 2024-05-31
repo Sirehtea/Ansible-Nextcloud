@@ -4,8 +4,8 @@
   vars_files:
     - vars.yml #gebruik de centrale vars.yml bestand
   roles:
-    - role: update_system_packages
-    - role: install_nginx
+    # - role: update_system_packages
+    # - role: uninstall_nginx
     - role: change_hostname
     - role: set_static_ip
     - role: install_docker
