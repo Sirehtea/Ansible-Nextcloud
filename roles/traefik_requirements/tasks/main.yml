@@ -6,6 +6,11 @@
     path: /root/deployment/traefik/acme.json
     mode: 600
 
+- name: Restart Docker service
+  systemd:
+    name: docker
+    state: restarted
+
 - name: Run Traefik with Docker Compose
   command: docker compose up -d
   args:
