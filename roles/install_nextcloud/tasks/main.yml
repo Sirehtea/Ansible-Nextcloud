@@ -36,15 +36,15 @@
     src: traefik.yml.j2
     dest: /root/deployment/traefik/traefik.yml
 
-- name: Run docker compose up
-  command: "docker compose up -d"
-  args:
-    chdir: /root/deployment/traefik
-
 - name: Restart Docker service
   systemd:
     name: docker
     state: restarted
+
+- name: Run docker compose up
+  command: "docker compose up -d"
+  args:
+    chdir: /root/deployment/traefik
 
 # - name: Set permissions for acme.json
 #   command: chmod 600 /root/deployment/traefik/acme.json
