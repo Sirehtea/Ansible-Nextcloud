@@ -138,6 +138,24 @@ ansible-playbook -i hosts.ini playbook.yml
 
 deze worden nog steeds centraal beheerd door de vars.yml en dus hoeft de gebruiker geen rekening te houden met deze bestanden.
 
+## Bekend Probleem
+
+Af en toe kan het gebeuren dat de website niet bereikbaar is, zelfs als alles correct draait via Docker. Om dit op te lossen, volg je deze stappen:
+
+1) Ga naar de ansible-Nextcloud folder.
+2) Herstart Traefik met het volgende commando:
+```bash
+cd /traefik
+docker compose down -v
+docker compose up -d --build
+```
+3) Herstart ook de andere twee services die verbonden zijn met de website.
+```bash
+cd ..
+docker compose down -v
+docker compose up -d --build
+```
+
 ## Extra's
 
 - Traefik Setup: Traefik is ingesteld als een reverse proxy om verkeer naar de Nextcloud-containers te leiden.
